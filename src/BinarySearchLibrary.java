@@ -44,15 +44,50 @@ public class BinarySearchLibrary {
 	public static <T>
     	int firstIndex(List<T> list, 
 	               	   T target, Comparator<T> comp) {
-		
+
+		// an empty list will not contain target
+		if (list.isEmpty()) {
+			return -1;
+		}
+
 		int low = -1;
-		int high = list.size()-1;
-		
+		int high = list.size() - 1;
+
 		// (low,high] contains target
 		// TODO: write method
-		
-		return -1;
-	}
+
+		// implement loop guard
+		while (low + 1 != high) {
+
+			// calculate the midpoint
+			int mid = (low + high) / 2;
+
+			T middle = list.get(mid);
+
+			// use comp.compare to adjust
+			int adjusted = comp.compare(middle, target);
+
+			if (adjusted < 0) {
+				low = mid;
+			}
+
+			if (adjusted >= 0) {
+				high = mid;
+			}
+		}
+
+		// check list.get(high) to see if it's a target
+		// use comp
+
+		if (comp.compare(list.get(high), target) == 0) {
+			// target found
+			return high;
+		}
+
+		// if target not present, return -1
+		else
+			return -1;
+		}
 
 	 /**                                                                                          
      * Return the index of the last object (largest index)
@@ -70,14 +105,43 @@ public class BinarySearchLibrary {
 	public static <T>
 	int lastIndex(List<T> list, 
                	  T target, Comparator<T> comp) {
+
+		// an empty list will not contain target
+		if (list.isEmpty()) {
+			return -1;
+		}
 		
 		int low = 0;
 		int high = list.size();
 		
 		// target in [low,high)
 		// TODO: write  method
-		
+
+		// implement loop guard
+		while(low != high - 1) {
+
+			int mid = (low + high) / 2;
+
+			T middle = list.get(mid);
+
+			// use comp.compare to adjust
+			int adjust = comp.compare(middle, target);
+
+			if (adjust > 0) {
+				high = mid;
+			}
+
+			if (adjust <= 0) {
+				low = mid;
+			}
+			// check list.get(low) to see if it's a target
+			// use comp
+			if (comp.compare(list.get(low), target) == 0) {
+				// target found
+				return low;
+			}
+		}
+		// if target not present, return -1
 		return -1;
 	}
-	
 }

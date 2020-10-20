@@ -108,7 +108,11 @@ public class BinarySearchAutocomplete implements Autocompletor {
 			return new ArrayList<>();
 		}
 
-		// write code here for P5 assignment
+//		PriorityQueue<Term> pq = new PriorityQueue<Term>(new Term.WeightOrder());
+//		for (int i = first; i <= last; i ++) {
+//			pq.add(myTerms[i]);
+//		}
+
 
 		return null;
 	

@@ -35,6 +35,20 @@ public class PrefixComparator implements Comparator<Term> {
     @Override
     public int compare(Term v, Term w) {
         // change this to use myPrefixSize as specified
-        return v.getWord().compareTo(w.getWord());
+        int r = myPrefixSize;
+
+        String a = v.getWord();
+        String b = w.getWord();
+
+        // if string lengths are greater than r, take a substring
+        if (a.length() > r) {
+            a = a.substring(0, r);
+        }
+
+        if (b.length() > r) {
+            b = b.substring(0, r);
+        }
+
+        return a.compareTo(b);
     }
 }
