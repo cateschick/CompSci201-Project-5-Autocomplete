@@ -112,6 +112,7 @@ public class BinarySearchAutocomplete implements Autocompletor {
 		if (first == -1) {               // prefix not found
 			return new ArrayList<>();
 		}
+
 		// maintain pq of size k
 		PriorityQueue<Term> pq = new PriorityQueue<Term>(Comparator.comparing(Term::getWeight));
 		for (Term t : myTerms) {
@@ -129,10 +130,10 @@ public class BinarySearchAutocomplete implements Autocompletor {
 			pq.add(myTerms[i]);
 		}
 
-		LinkedList<Term> ret = new LinkedList<Term>();
+		ArrayList<Term> ret = new ArrayList<Term>();
 		int numResults = Math.min(k, pq.size());
 		for (int i = 0; i < numResults; i++) {
-			ret.addFirst(pq.remove());
+			ret.add(pq.remove());
 		}
 		return ret;
 	}
