@@ -134,13 +134,13 @@ public class BinarySearchLibrary {
 			if (adjust <= 0) {
 				low = mid;
 			}
-			// check list.get(low) to see if it's a target
-			// use comp
-			if (comp.compare(list.get(low), target) == 0) {
-				// target found
-				return low;
-			}
 		}
+		// check list.get(low) to see if it's a target
+		// use comp
+		if (comp.compare(list.get(low), target) == 0) {
+			// target found
+			return low;
+			}
 		// if target not present, return -1
 		return -1;
 	}
