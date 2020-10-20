@@ -24,6 +24,17 @@ public HashListAutocomplete(String[] terms, double[] weights){
         initialize(terms, weights);
 }
 
+    /**
+     * Implements Autocompleter interface
+     * Faster implementation due to use of HashSet. Maintains hashlist containing
+     * possible prefixes up to k=10.
+     * Returns k words in myTerms with the largest weight matching prefix in descending
+     * weight order. If less than k words exist, the array will contain all available
+     * words
+     * @param prefix
+     * @param k
+     * @return
+     */
     @Override
     public List<Term> topMatches(String prefix, int k) {
 

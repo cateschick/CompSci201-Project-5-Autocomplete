@@ -99,6 +99,11 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	
 	@Override
 	public List<Term> topMatches(String prefix, int k) {
+		// illegal exception argument from BruteAutocomplete
+		if (k < 0) {
+			throw new IllegalArgumentException("Illegal value of k: " + k);
+		}
+
 		Term dummy = new Term(prefix,0);
 		PrefixComparator comp = PrefixComparator.getComparator(prefix.length());
 		int first = firstIndexOf(myTerms, dummy, comp);
@@ -107,15 +112,29 @@ public class BinarySearchAutocomplete implements Autocompletor {
 		if (first == -1) {               // prefix not found
 			return new ArrayList<>();
 		}
+		// maintain pq of size k
+		PriorityQueue<Term> pq = new PriorityQueue<Term>(Comparator.comparing(Term::getWeight));
+		for (Term t : myTerms) {
+			if (!t.getWord().startsWith(prefix))
+				continue;
+			if (pq.size() < k) {
+				pq.add(t);
+			} else if (pq.peek().getWeight() < t.getWeight()) {
+				pq.remove();
+				pq.add(t);
+			}
+		}
 
-//		PriorityQueue<Term> pq = new PriorityQueue<Term>(new Term.WeightOrder());
-//		for (int i = first; i <= last; i ++) {
-//			pq.add(myTerms[i]);
-//		}
+		for (int i = first; i <= last; i ++) {
+			pq.add(myTerms[i]);
+		}
 
-
-		return null;
-	
+		LinkedList<Term> ret = new LinkedList<Term>();
+		int numResults = Math.min(k, pq.size());
+		for (int i = 0; i < numResults; i++) {
+			ret.addFirst(pq.remove());
+		}
+		return ret;
 	}
 
 	@Override
