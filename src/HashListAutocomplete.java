@@ -19,9 +19,9 @@ public class HashListAutocomplete implements Autocompletor {
  */
 public HashListAutocomplete(String[] terms, double[] weights){
     if (terms == null || weights == null) {
-        throw new NullPointerException("No");
+        throw new NullPointerException("One or more arguments null");}
         // implement constructor call to initialize
-    }
+        initialize(terms, weights);
 }
 
     @Override
